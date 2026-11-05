@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Reserva de Aulas - Mobile</title>
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --card-bg: #ffffff;
+            --text-main: #2c2a29;
+            --text-muted: #6b6865;
+            --primary: #4a5d4e;
+            --primary-hover: #3b4b3e;
+            --border-color: #e6e4df;
+            --success: #5c7f67;
+            --danger: #b85c5c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 16px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-top: 12px;
+        }
+
+        header h1 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--text-main);
+            letter-spacing: -0.3px;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .btn-link {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-link:active {
+            background-color: var(--primary-hover);
+        }
+
+        .status-box {
+            margin-top: 10px;
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .status-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .slot-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 320px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+
+        .slot-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .slot-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .slot-time {
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .slot-details {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .badge.livre {
+            background-color: #eaf1ec;
+            color: var(--success);
+        }
+
+        .badge.reservado {
+            background-color: #faeaea;
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Agenda de Aulas Online</h1>
+        <p>Consulte os horários e faça seu agendamento</p>
+    </header>
+
+    <main>
+        <!-- Botão rápido que direciona o aluno/usuário para o Google Forms que você criou -->
+        <a href="URL_DO_SEU_GOOGLE_FORMS_AQUI" target="_blank" class="btn-link">
+            Preencher Novo Agendamento
+        </a>
+
+        <div class="card status-box">
+            <div class="status-header">
+                <span class="status-title">Status dos Horários</span>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Atualizado hoje</span>
+            </div>
+            
+            <div class="slot-list" id="slotList">
+                <!-- Os horários serão carregados aqui dinamicamente -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Função para carregar os horários (pode ser substituída por uma chamada fetch para a sua Planilha via Apps Script)
+        function carregarHorarios() {
+            const container = document.getElementById('slotList');
+            
+            // Exemplo de dados vindos da planilha ou simulados para o celular
+            const horarios = [
+                { data: "01/11/2026", hora: "08:00 - 09:00", solicitante: "Turma Girls", status: "Reservado" },
+                { data: "01/11/2026", hora: "09:00 - 10:00", solicitante: "Disponível", status: "Livre" },
+                { data: "01/11/2026", hora: "14:00 - 15:00", solicitante: "Turma 01", status: "Reservado" },
+                { data: "02/11/2026", hora: "08:00 - 09:00", solicitante: "Disponível", status: "Livre" },
+                { data: "02/11/2026", hora: "10:00 - 11:00", solicitante: "Disponível", status: "Livre" }
+            ];
+
+            container.innerHTML = '';
+            
+            horarios.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'slot-item';
+                div.innerHTML = `
+                    <div class="slot-info">
+                        <span class="slot-time">${item.data} • ${item.hora}</span>
+                        <span class="slot-details">${item.solicitante}</span>
+                    </div>
+                    <span class="badge ${item.status.toLowerCase()}">${item.status}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Executa ao carregar a página
+        window.onload = carregarHorarios;
+    </script>
+</body>
+</html>
