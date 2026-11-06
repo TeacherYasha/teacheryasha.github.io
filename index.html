@@ -7,11 +7,11 @@
 <meta property="og:description" content="Aulas de inglês online personalizadas com a Teacher Yasha.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/yasha-portrait--EWad3Fw.jpg">
-<meta name="theme-color" content="#fbf9f6"><meta name="yasha-build" content="2026-11-06-animacao-controlada-v4">
+<meta name="theme-color" content="#fbf9f6"><meta name="yasha-build" content="2026-11-06-navegacao-fluida-v5">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,600&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=yasha-v4">
+<link rel="stylesheet" href="styles.css?v=yasha-v5">
 <style>.yasha-menu-toggle{display:none;cursor:pointer;background:transparent;border:0;color:var(--foreground);font-size:22px;line-height:1;padding:10px 6px}
 .yasha-mobile-menu[hidden]{display:none!important}
 .yasha-mobile-menu{position:fixed;top:88px;left:16px;right:16px;z-index:49;border-radius:20px;padding:20px;background:rgba(255,255,255,.96);border:1px solid rgba(232,180,184,.32);box-shadow:0 18px 40px #0002;backdrop-filter:blur(18px);display:grid;gap:8px}
@@ -25,8 +25,8 @@
   0%,100% {transform:translate3d(0,0,0)}
   50% {transform:translate3d(0,-12px,0)}
 }
-.float-soft {animation:yasha-float-gentle 15s ease-in-out infinite !important}
-.float-slow {animation:yasha-float-gentle 19s ease-in-out infinite !important}
+.float-soft {animation:yasha-float-gentle 9s ease-in-out infinite !important}
+.float-slow {animation:yasha-float-gentle 11s ease-in-out infinite !important}
 /* A navegação por âncoras é animada pelo script, sem animação dupla do CSS. */
 html.yasha-scroll-controlled { scroll-behavior: auto !important; }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
@@ -42,13 +42,12 @@ html.yasha-scroll-controlled { scroll-behavior: auto !important; }
 (function(){
   const root=document.documentElement;
   const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-  root.classList.add('yasha-scroll-controlled');
   let frame=null;
 
   const cancel=()=>{
     if(frame!==null){window.cancelAnimationFrame(frame);frame=null;}
   };
-  ['wheel','touchstart','pointerdown','keydown'].forEach(type=>{
+  ['wheel','touchstart'].forEach(type=>{
     window.addEventListener(type,cancel,{passive:true});
   });
 
@@ -62,12 +61,12 @@ html.yasha-scroll-controlled { scroll-behavior: auto !important; }
     const start=window.scrollY;
     const destination=Math.max(0,Math.round(start+target.getBoundingClientRect().top-clearance));
     if(updateHistory&&location.hash!==hash)history.pushState(null,'',hash);
-    if(reducedMotion.matches||Math.abs(destination-start)<2){
+    if(Math.abs(destination-start)<2){
       window.scrollTo({top:destination,behavior:'instant'});
       return true;
     }
     const distance=Math.abs(destination-start);
-    const duration=Math.min(1550,Math.max(900,850+distance*.17));
+    const duration=Math.min(1250,Math.max(700,700+distance*.11));
     let startTime=null;
     const step=(time)=>{
       if(startTime===null)startTime=time;
@@ -92,8 +91,9 @@ html.yasha-scroll-controlled { scroll-behavior: auto !important; }
   });
   window.addEventListener('popstate',()=>{
     if(location.hash){goTo(location.hash,false);}
-    else{cancel();window.scrollTo({top:0,behavior:reducedMotion.matches?'instant':'smooth'});}
+    else{cancel();window.scrollTo({top:0,behavior:'smooth'});}
   });
+  root.classList.add('yasha-scroll-controlled');
 })();
 
 /* Animação controlada: remove as classes de animação do CSS antigo e utiliza
@@ -111,8 +111,8 @@ html.yasha-scroll-controlled { scroll-behavior: auto !important; }
     if(!active)return;
     balloons.forEach((el,i)=>{
       if(typeof el.animate!=='function')return;
-      const amplitude=i===0?12:10;
-      const timing=i%2===0?15000:19000;
+      const amplitude=i===0?10:9;
+      const timing=i%2===0?9000:11000;
       const effect=el.animate([
         {transform:'translate3d(0,0,0)',offset:0},
         {transform:'translate3d(0,-'+amplitude+'px,0)',offset:.5},
