@@ -31,6 +31,11 @@
             backdrop-filter: blur(14px);
             border: 1px solid rgba(226, 191, 194, 0.3);
         }
+        .glass-dark {
+            background: rgba(28, 27, 26, 0.85);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
         .text-gradient {
             background: linear-gradient(135deg, #b8868b, #38423b);
             -webkit-background-clip: text;
@@ -81,7 +86,7 @@
                 </div>
             </div>
             
-            <!-- Foto Principal -->
+            <!-- Foto Principal com Caixas Flutuantes -->
             <div class="md:col-span-5">
                 <div class="relative">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-float bg-[#ecdcdc]">
@@ -100,7 +105,36 @@
         </div>
     </section>
 
-    <!-- SOBRE / HISTÓRIA -->
+    <!-- UMA VERDADE SILENCIOSA -->
+    <section class="relative py-24 md:py-32">
+        <div class="max-w-6xl mx-auto px-6 md:px-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <p class="text-[11px] uppercase tracking-[0.32em] text-[#38423b] mb-4 font-semibold">Uma verdade silenciosa</p>
+                <h2 class="font-display text-3xl md:text-5xl leading-[1.08]">Talvez o problema <br/> nunca tenha sido <em class="text-gradient">você.</em></h2>
+                <p class="mt-4 text-sm md:text-base text-gray-600 leading-relaxed font-light">Tantas pessoas tentam, desistem, e levam pra vida a sensação de que “não nasceram pro inglês”. Não é verdade. Era só o caminho errado.</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="glass rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-display text-xl mb-2">Vergonha de falar</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed font-light">Aquele frio que paralisa antes de soltar a primeira palavra.</p>
+                </div>
+                <div class="glass rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-display text-xl mb-2">Sensação de travar</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed font-light">Você entende, mas a fala não sai — e a frustração cresce.</p>
+                </div>
+                <div class="glass rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-display text-xl mb-2">Métodos cansativos</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed font-light">Apostilas que nunca conversam com a sua vida real.</p>
+                </div>
+                <div class="glass rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-display text-xl mb-2">Inglês complicado demais</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed font-light">Regras intermináveis que afastam você do que importa: comunicar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE / HISTÓRIA (Com os 5 Capítulos) -->
     <section id="sobre" class="relative py-24 md:py-32 bg-[#f4ede6]/60">
         <div class="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-12 gap-12 md:gap-20 items-start">
             <div class="md:col-span-5 md:sticky md:top-28">
@@ -121,12 +155,24 @@
                     <li class="relative">
                         <span class="absolute -left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#38423b] ring-4 ring-[#fbf9f6]"></span>
                         <p class="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-1">Capítulo 02</p>
+                        <h3 class="font-display text-xl md:text-2xl mb-2">O quase desistir</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed font-light">Houve um momento em que pensei: talvez isso não seja pra mim.</p>
+                    </li>
+                    <li class="relative">
+                        <span class="absolute -left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#38423b] ring-4 ring-[#fbf9f6]"></span>
+                        <p class="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-1">Capítulo 03</p>
                         <h3 class="font-display text-xl md:text-2xl mb-2">O encontro que mudou tudo</h3>
                         <p class="text-sm text-gray-600 leading-relaxed font-light">Uma professora me mostrou que aprender podia ser leve. Que o método certo abre portas que nenhum esforço sozinho abre.</p>
                     </li>
                     <li class="relative">
                         <span class="absolute -left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#38423b] ring-4 ring-[#fbf9f6]"></span>
-                        <p class="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-1">Capítulo 03</p>
+                        <p class="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-1">Capítulo 04</p>
+                        <h3 class="font-display text-xl md:text-2xl mb-2">A descoberta</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed font-light">Entendi que método é cuidado. É olhar pra pessoa antes de olhar pra gramática.</p>
+                    </li>
+                    <li class="relative">
+                        <span class="absolute -left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#38423b] ring-4 ring-[#fbf9f6]"></span>
+                        <p class="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-1">Capítulo 05</p>
                         <h3 class="font-display text-xl md:text-2xl mb-2">A minha missão</h3>
                         <p class="text-sm text-gray-600 leading-relaxed font-light">Hoje eu ensino do jeito que eu queria ter aprendido: com presença, escuta e propósito.</p>
                     </li>
@@ -162,8 +208,31 @@
         </div>
     </section>
 
-    <!-- VIDA / LIFESTYLE (Com ID corrigido para funcionar) -->
-    <section id="vida" class="relative py-24 md:py-32 bg-[#f4ede6]/60">
+    <!-- EXPERIÊNCIA -->
+    <section id="experiencia" class="relative py-24 md:py-32 bg-[#f4ede6]/60">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-12 gap-12 md:gap-16 items-center">
+            <div class="md:col-span-6">
+                <p class="text-[11px] uppercase tracking-[0.32em] text-[#38423b] mb-4 font-semibold">A experiência da aluna</p>
+                <h2 class="font-display text-3xl md:text-5xl leading-tight mb-6">Mais do que aulas. <br/> Uma <em class="text-gradient">experiência</em> de cuidado.</h2>
+                <p class="text-sm md:text-base text-gray-600 leading-relaxed max-w-lg font-light">Cada detalhe é pensado para que você se sinta acolhida, vista e em movimento. Aprender vira algo bonito de viver.</p>
+            </div>
+            <div class="md:col-span-6">
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="glass rounded-xl p-5 shadow-sm">
+                        <h4 class="font-display text-base mb-1 font-medium">Plano adaptado</h4>
+                        <p class="text-xs text-gray-600 font-light">Construído com você na primeira conversa.</p>
+                    </div>
+                    <div class="glass rounded-xl p-5 shadow-sm">
+                        <h4 class="font-display text-base mb-1 font-medium">Suporte entre aulas</h4>
+                        <p class="text-xs text-gray-600 font-light">Sempre por perto, no seu ritmo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDA / LIFESTYLE -->
+    <section id="vida" class="relative py-24 md:py-32">
         <div class="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-12 gap-12 md:gap-16 items-center">
             <div class="md:col-span-6">
                 <p class="text-[11px] uppercase tracking-[0.32em] text-[#38423b] mb-4 font-semibold">Lifestyle</p>
@@ -184,7 +253,7 @@
     </section>
 
     <!-- ALUNAS (DEPOIMENTOS) -->
-    <section id="alunas" class="relative py-24 md:py-32">
+    <section id="alunas" class="relative py-24 md:py-32 bg-[#f4ede6]/60">
         <div class="max-w-7xl mx-auto px-6 md:px-10">
             <div class="text-center mb-16">
                 <p class="text-[11px] uppercase tracking-[0.32em] text-[#38423b] mb-4 font-semibold">Histórias reais</p>
@@ -210,8 +279,20 @@
         </div>
     </section>
 
+    <!-- SEÇÃO FINAL ESCURA ("COMECE SEM MEDO") -->
+    <section class="relative py-28 md:py-40 bg-[#1c1b1a] text-[#fbf9f6] text-center overflow-hidden">
+        <div class="relative max-w-3xl mx-auto px-6 md:px-10">
+            <p class="text-[11px] uppercase tracking-[0.32em] text-[#e2bfc2] mb-6 font-medium">Comece sem medo</p>
+            <h2 class="font-display text-3xl md:text-6xl leading-[1.08] mb-6">Que tal a gente <em class="italic text-[#e2bfc2]">só conversar?</em></h2>
+            <p class="text-sm md:text-base text-gray-300 max-w-xl mx-auto mb-10 font-light leading-relaxed">Sem compromisso. Sem teste. Sem cobrança. Só uma conversa pra você sentir como pode ser leve recomeçar — no seu tempo, do seu jeito.</p>
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="https://wa.me/?text=Oi%20Yasha!%20Quero%20saber%20mais%20sobre%20as%20aulas." target="_blank" rel="noreferrer" class="inline-block bg-[#fbf9f6] text-black px-7 py-3 rounded-full text-xs font-medium uppercase tracking-widest hover:bg-[#e2bfc2] transition shadow-lg">Falar com a Yasha</a>
+            </div>
+        </div>
+    </section>
+
     <!-- RODAPÉ -->
-    <footer class="py-14 bg-[#1c1b1a] text-[#fbf9f6]">
+    <footer class="py-14 bg-[#1c1b1a] text-[#fbf9f6] border-t border-white/10">
         <div class="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-3 gap-10 items-center">
             <div>
                 <p class="font-display text-xl">Teacher <span class="italic text-gradient">Yasha</span></p>
@@ -220,6 +301,7 @@
             <div class="text-xs text-gray-400 space-y-1.5 md:text-center font-light">
                 <a href="#sobre" class="block hover:text-white transition">História</a>
                 <a href="#metodo" class="block hover:text-white transition">Método</a>
+                <a href="#experiencia" class="block hover:text-white transition">Experiência</a>
                 <a href="#vida" class="block hover:text-white transition">Vida</a>
                 <a href="#alunas" class="block hover:text-white transition">Alunas</a>
             </div>
