@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Yasha — Inglês com leveza, presença e propósito</title>
+    <meta name="description" content="Aulas de inglês online personalizadas com a Teacher Yasha. Aprenda no seu ritmo, sem pressão, com conexão humana e acompanhamento individual.">
+    <meta property="og:title" content="Teacher Yasha — Inglês com leveza, presença e propósito">
+    <meta property="og:description" content="Aulas de inglês online personalizadas com a Teacher Yasha.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#fbf9f6">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -291,24 +296,34 @@
             .lg\:text-\[4\.8rem\] { font-size: 4.8rem; }
         }
     </style>
+<style>
+      #menu-mobile[hidden]{display:none!important} #menu-mobile:not([hidden]){display:grid;gap:16px}
+      #menu-mobile a{display:block;text-decoration:none;font-size:14px;padding:5px}
+      @media(min-width:768px){#abrir-menu,#menu-mobile{display:none!important}}
+      @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    </style>
 </head>
 <body class="antialiased selection:bg-pink-200">
 
     <!-- MENU SUPERIOR -->
     <nav class="fixed top-4 left-4 right-4 z-50 glass rounded-full max-w-7xl mx-auto px-6 md:px-8 py-3 flex items-center justify-between shadow-sm">
         <a href="#top" class="font-display text-base md:text-lg tracking-tight">Teacher <span class="italic text-gradient font-bold">Yasha</span></a>
-        <div class="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-[0.22em] text-gray-600 font-medium">
+        <div id="navegacao" class="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-[0.22em] text-gray-600 font-medium">
             <a href="#sobre" class="hover:text-black transition">História</a>
             <a href="#metodo" class="hover:text-black transition">Método</a>
             <a href="#experiencia" class="hover:text-black transition">Experiência</a>
             <a href="#vida" class="hover:text-black transition">Vida</a>
             <a href="#alunas" class="hover:text-black transition">Alunas</a>
         </div>
+        <button id="abrir-menu" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu" class="md:hidden" style="padding:8px 12px;font-size:22px;cursor:pointer">☰</button>
         <a href="https://wa.me/?text=Oi%20Yasha!%20Quero%20saber%20mais%20sobre%20as%20aulas." target="_blank" rel="noreferrer" class="group flex items-center gap-2 bg-[#38423b] text-white rounded-full pl-5 pr-2 py-2 text-[11px] font-medium uppercase tracking-[0.22em] hover:bg-black transition-colors">
             Agendar aula
             <span class="w-7 h-7 rounded-full bg-[#e2bfc2] text-black grid place-items-center group-hover:rotate-45 transition-transform">↗</span>
         </a>
     </nav>
+    <div id="menu-mobile" hidden class="glass" style="position:fixed;top:88px;left:16px;right:16px;z-index:49;border-radius:20px;padding:20px;box-shadow:0 16px 35px #0002">
+      <a href="#sobre">História</a><a href="#metodo">Método</a><a href="#experiencia">Experiência</a><a href="#vida">Vida</a><a href="#alunas">Alunas</a>
+    </div>
 
     <!-- SEÇÃO HERO (TOPO) -->
     <section id="top" class="relative pt-32 md:pt-40 pb-20 md:pb-28 overflow-hidden">
@@ -639,5 +654,17 @@
         </div>
     </footer>
 
+<script>
+      (function(){
+        const button=document.getElementById('abrir-menu');
+        const menu=document.getElementById('menu-mobile');
+        if(!button||!menu)return;
+        const close=()=>{menu.hidden=true;button.setAttribute('aria-expanded','false');button.setAttribute('aria-label','Abrir menu');};
+        button.addEventListener('click',()=>{const open=menu.hidden;menu.hidden=!open;button.setAttribute('aria-expanded',String(open));button.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');});
+        menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',close));
+        document.addEventListener('keydown',event=>{if(event.key==='Escape')close();});
+        window.addEventListener('resize',()=>{if(window.innerWidth>=768)close();});
+      })();
+    </script>
 </body>
 </html>
