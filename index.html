@@ -7,11 +7,11 @@
 <meta property="og:description" content="Aulas de inglês online personalizadas com a Teacher Yasha.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/yasha-portrait--EWad3Fw.jpg">
-<meta name="theme-color" content="#fbf9f6"><meta name="yasha-build" content="2026-11-06-movimento-contraste-03">
+<meta name="theme-color" content="#fbf9f6"><meta name="yasha-build" content="2026-11-06-animacao-controlada-v4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,600&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261106-3">
+<link rel="stylesheet" href="styles.css?v=yasha-v4">
 <style>.yasha-menu-toggle{display:none;cursor:pointer;background:transparent;border:0;color:var(--foreground);font-size:22px;line-height:1;padding:10px 6px}
 .yasha-mobile-menu[hidden]{display:none!important}
 .yasha-mobile-menu{position:fixed;top:88px;left:16px;right:16px;z-index:49;border-radius:20px;padding:20px;background:rgba(255,255,255,.96);border:1px solid rgba(232,180,184,.32);box-shadow:0 18px 40px #0002;backdrop-filter:blur(18px);display:grid;gap:8px}
@@ -20,30 +20,13 @@
 @media(max-width:767px){.yasha-menu-toggle{display:block}}
 @media(max-width:430px){nav>.max-w-7xl>a:last-of-type{display:none}}
 
-/* Movimento delicado mas perceptível: duração longa, sem saltos ou rotações. */
+/* Animação visível com fallback CSS; o JavaScript assume o controle quando disponível. */
 @keyframes yasha-float-gentle {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -12px, 0); }
+  0%,100% {transform:translate3d(0,0,0)}
+  50% {transform:translate3d(0,-12px,0)}
 }
-@media (prefers-reduced-motion: no-preference) {
-  .float-soft { animation: yasha-float-gentle 16s ease-in-out infinite !important; }
-  .float-slow { animation: yasha-float-gentle 20s ease-in-out infinite !important; }
-}
-/* Corrige cores omitidas por seletores utilitários do CSS original. */
-.yasha-dark-panel,
-.yasha-dark-panel h2,
-.yasha-dark-panel h3 { color: #fbf9f6 !important; }
-.yasha-dark-panel h2 em { color: var(--blush) !important; }
-.yasha-dark-panel .glass-dark p:not(.font-display) { color: rgba(251,249,246,.78) !important; }
-
-.yasha-final-cta .yasha-final-content,
-.yasha-final-cta .yasha-final-content h2 { color: #fbf9f6 !important; }
-.yasha-final-cta .yasha-final-content h2 em { color: var(--blush) !important; }
-.yasha-final-cta .yasha-final-content > p:nth-of-type(2) { color: rgba(251,249,246,.84) !important; }
-.yasha-final-cta .yasha-primary-cta { background: #fbf9f6 !important; color: #241e20 !important; }
-.yasha-final-cta .yasha-primary-cta:hover { background: #e2bfc2 !important; }
-.yasha-final-cta .yasha-secondary-cta { color: #fbf9f6 !important; border-color: rgba(251,249,246,.25); }
-.yasha-final-cta .yasha-secondary-cta:hover { color: #e2bfc2 !important; }
+.float-soft {animation:yasha-float-gentle 15s ease-in-out infinite !important}
+.float-slow {animation:yasha-float-gentle 19s ease-in-out infinite !important}
 /* A navegação por âncoras é animada pelo script, sem animação dupla do CSS. */
 html.yasha-scroll-controlled { scroll-behavior: auto !important; }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
@@ -112,4 +95,36 @@ html.yasha-scroll-controlled { scroll-behavior: auto !important; }
     else{cancel();window.scrollTo({top:0,behavior:reducedMotion.matches?'instant':'smooth'});}
   });
 })();
-</script></body></html>
+
+/* Animação controlada: remove as classes de animação do CSS antigo e utiliza
+   a Web Animations API para garantir movimento contínuo e sem saltos. */
+(function(){
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const balloons=Array.from(document.querySelectorAll('.float-soft,.float-slow'));
+  const sessions=[];
+  let active=false;
+  function startBalloonMotion(overrideReduction){
+    sessions.forEach(x=>x.cancel());
+    sessions.length=0;
+    balloons.forEach(el=>el.classList.remove('float-soft','float-slow'));
+    active=!reduced.matches || !!overrideReduction;
+    if(!active)return;
+    balloons.forEach((el,i)=>{
+      if(typeof el.animate!=='function')return;
+      const amplitude=i===0?12:10;
+      const timing=i%2===0?15000:19000;
+      const effect=el.animate([
+        {transform:'translate3d(0,0,0)',offset:0},
+        {transform:'translate3d(0,-'+amplitude+'px,0)',offset:.5},
+        {transform:'translate3d(0,0,0)',offset:1}
+      ],{duration:timing,iterations:Infinity,easing:'ease-in-out',fill:'both'});
+      sessions.push(effect);
+    });
+  }
+  startBalloonMotion(false);
+  window.yashaMotionStatus=function(){
+    return {reduced:reduced.matches,active,balloons:balloons.length,animations:sessions.length,
+      durations:sessions.map(x=>x.effect&&x.effect.getTiming().duration)};
+  };
+  window.yashaStartBalloonMotion=function(){startBalloonMotion(true);return window.yashaMotionStatus();};
+})();</script></body></html>
