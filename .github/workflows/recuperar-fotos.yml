@@ -1,0 +1,54 @@
+name: Recuperar fotos originais do Lovable
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [reconstrucao-lovable]
+    paths:
+      - '.github/workflows/recuperar-fotos.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  recuperar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: reconstrucao-lovable
+      - name: Baixar e verificar as quatro fotos
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets
+          base="https://yasha-learns-light.lovable.app/assets"
+          for file in \
+            yasha-portrait--EWad3Fw.jpg \
+            yasha-book-FJUB7qEd.jpg \
+            yasha-lifestyle-ir5b4ZoR.jpg \
+            yasha-sister-D5FQzyzQ.jpg; do
+            curl --fail --location --retry 3 --connect-timeout 20 --max-time 90 \
+              --user-agent 'Mozilla/5.0 (compatible; TeacherYashaAssetBackup/1.0)' \
+              "$base/$file" -o "assets/$file"
+            test "$(head -c 3 "assets/$file" | od -An -tx1 | tr -d ' \n')" = "ffd8ff" || { echo "Arquivo não é JPEG: $file"; exit 1; }
+            test "$(wc -c < "assets/$file")" -gt 1000 || { echo "Imagem muito pequena: $file"; exit 1; }
+          done
+      - name: Atualizar referências somente após download completo
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path("index.html")
+          html=p.read_text(encoding="utf-8")
+          html=html.replace("https://yasha-learns-light.lovable.app/assets/yasha-", "assets/yasha-")
+          p.write_text(html,encoding="utf-8")
+          PY
+      - name: Salvar imagens na branch de desenvolvimento
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/ index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Hospeda as quatro fotos originais localmente"
+            git push origin HEAD:reconstrucao-lovable
+          fi
